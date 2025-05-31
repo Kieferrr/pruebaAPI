@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CHART JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Conversor de monedas Nacional</title>
 </head>
 <body>
@@ -18,7 +20,9 @@
             <input id="clp-input" type="text">
 
             <label for="currency-select">Moneda a convertir</label>
-            <select id="currency-select"></select>
+            <select id="currency-select">
+                <option value="" disabled selected>Seleccionar moneda</option>
+            </select>
 
             <button id="converter-button">Buscar</button>
             <p id="result-p"></p>
