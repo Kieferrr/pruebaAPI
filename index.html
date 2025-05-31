@@ -5,29 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CHART JS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- ROBOTO FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
     <title>Conversor de monedas Nacional</title>
 </head>
 <body>
     <header>
-        <h1 style="text-align: center;">Conversor de monedas Nacional</h1>
-        <hr/ >
+        <h1>Conversor de monedas Nacional</h1>
     </header>
     <main>
-        <section>
-            <h3 id="card-title">Convertir desde Pesos CLP</h3>
+        <section class="conversor-container">
+            <div class="conversor-card">
 
-            <label for="clp-input">Monto en CLP</label>
-            <input id="clp-input" type="text">
+                <h3 id="card-title">Pesos chilenos a otra moneda</h3>
+                
+                <div class="form-group">
+                    <label for="clp-input">Monto</label>
+                    <input placeholder="Ej: 10000" id="clp-input" type="number">
 
-            <label for="currency-select">Moneda a convertir</label>
-            <select id="currency-select">
-                <option value="" disabled selected>Seleccionar moneda</option>
-            </select>
-
-            <button id="converter-button">Buscar</button>
-            <p id="result-p"></p>
-            <div class="gráfica">
-                <canvas id="myChart"></canvas>
+                    <label for="currency-select">Moneda a convertir</label>
+                    <select id="currency-select">
+                        <option value="" disabled selected>Seleccionar moneda</option>
+                    </select>
+                    
+                    <button id="converter-button">Buscar</button>
+                    <p id="result-p"></p>
+                    <div class="gráfica">
+                </div>
+                    <canvas id="myChart"></canvas>
+                </div>
             </div>
         </section>
     </main>
