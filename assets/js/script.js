@@ -48,4 +48,55 @@ converterButton.addEventListener("click", () => {
 
     //Mostrar resultado en la página
     resultP.innerHTML = conversion.toFixed(2);
+
+    renderGrafica(monedaSeleccionada.codigo)
 });
+
+// Función para llamar a la API y obtener los datos de la variación los últimos 10 días
+
+async function obtenerVariación(moneda) {
+    try {
+        const res = await fetch(`https://mindicador.cl/api/${moneda}`)
+        const resultado = await res.json()
+
+        // Solo últimos 10 días
+        const ultimosDiezDias = resultado.serie.slice(0,10)
+
+        // Labels para eje X
+        const labels = ultimosDiezDias.map((dia)=> {
+            return dia.fecha
+        })
+
+        // Valores para el eje Y
+        const data = ultimosDiezDias.map ((dia) => {
+            const valor = dia.valor
+            return valor
+        })
+        
+        const datasets = [
+            {
+                label: "Valor",
+                borderColor: "rgb(255, 99, 132)",
+                data,
+            }
+        ]
+        return {labels, datasets}
+    }
+    catch (error) {
+        console.log(error);
+        
+    }
+}
+
+// Funcion para renderizar el gráfico
+async function renderGrafica(moneda) {
+    const data = await obtenerVariación(moneda)
+    
+    const config = {
+        type: "line",
+        data
+    }
+    const myChart = document.getElementById("myChart")
+    myChart.style.backgroundColor = "white"
+    new Chart(myChart, config)
+}
