@@ -60,7 +60,7 @@ async function obtenerVariación(moneda) {
         const resultado = await res.json();
 
         // Solo últimos 10 días
-        const ultimosDiezDias = resultado.serie.slice(0, 10);
+        const ultimosDiezDias = resultado.serie.slice(0, 10).reverse();
 
         // Labels para eje X
         const labels = ultimosDiezDias.map((dia) => {
@@ -75,8 +75,8 @@ async function obtenerVariación(moneda) {
 
         const datasets = [
             {
-                label: "Valor",
-                borderColor: "rgb(255, 99, 132)",
+                label: '',
+                borderColor: "#8585cf",
                 data,
             }
         ]
@@ -97,10 +97,68 @@ async function renderGrafica(moneda) {
 
     const config = {
         type: "line",
-        data
+        data,
+        options: {
+            layout: {
+                padding: {
+                    top: 20,
+                    bottom: 20,
+                    right: 30,
+                    left: 30,
+                },
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Fechas',
+                        font: {
+                            family: 'Roboto',
+                            size: 16,
+                        },
+                        color: 'whitesmoke',
+                    },
+                    ticks: {
+                        color: '#bbbbbb',
+                        callback: function (value, index, values) {
+                            return data.labels[index].slice(5, 10);
+                        }
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#bbbbbb',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Valor',
+                        font: {
+                            family: 'Roboto',
+                            size: 16,
+                        },
+                        color: 'whitesmoke',
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: `Valor diario del ${moneda}`,
+                    font: {
+                        family: 'Roboto',
+                        size: 24,
+                        weight: 'bold'
+                    },
+                    color: 'whitesmoke',
+                },
+                legend: {
+                    display: false,
+                }
+            }
+        }
     };
     const myChart = document.getElementById("myChart");
-    myChart.style.backgroundColor = "white";
+    myChart.style.backgroundColor = "#303030";
 
     // Si ya hay un gráfico, se borra antes de crear uno nuevo
     if (graficoActual) {
