@@ -77,6 +77,7 @@ async function obtenerVariación(moneda) {
             {
                 label: '',
                 borderColor: "#8585cf",
+                backgroundColor: '#bbbbbb',
                 data,
             }
         ]
