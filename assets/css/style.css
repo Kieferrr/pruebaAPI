@@ -126,7 +126,7 @@ input:focus {
     font-weight: bold;
     margin-top: 2.2rem;
     padding: 0.7rem 9rem;
-    border-radius: 2.2rem;
+    border-radius: 0.2rem;
     cursor: pointer;
 }
 
