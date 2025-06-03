@@ -3,6 +3,20 @@ const currencySelect = document.getElementById("currency-select");
 const converterButton = document.getElementById("converter-button");
 const resultP = document.getElementById("result-p");
 
+// Diccionario para mostrar nombres de las monedas con mayúscula y acento
+
+const nombresMonedas = {
+    dolar: "Dólar",
+    euro: "Euro",
+    uf: "UF",
+}
+
+const pluralMonedas = {
+    dolar: "Dólares",
+    euro: "Euros",
+    uf: "UF",
+}
+
 // Arreglo para guardar las monedas que llegan desde la API
 
 let monedas = [];
@@ -23,8 +37,9 @@ async function obtenerMonedas() {
         // Crear las opciones del select usando los codigos de la API
         for (let moneda of monedas) {
             const opciones = document.createElement("option");
+            const nombreMoneda = nombresMonedas[moneda.codigo] || moneda.codigo;
             opciones.value = moneda.codigo;
-            opciones.textContent = moneda.codigo;
+            opciones.textContent = nombreMoneda;
             currencySelect.appendChild(opciones);
         }
     }
@@ -47,7 +62,9 @@ converterButton.addEventListener("click", () => {
     const conversion = clpInput.value / valor;
 
     //Mostrar resultado en la página
-    resultP.innerHTML = conversion.toFixed(2);
+    const pluralMoneda = pluralMonedas[monedaSeleccionada.codigo] || monedaSeleccionada.codigo;
+    resultP.innerHTML = `${clpInput.value} CLP equivalen a ${conversion.toFixed(2)} ${pluralMoneda}`;
+
 
     renderGrafica(monedaSeleccionada.codigo);
 });
