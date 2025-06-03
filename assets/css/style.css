@@ -137,7 +137,8 @@ input:focus {
 /* Diseño respuesta */
 #result-p {
     color: whitesmoke;
-    font-size: 1rem;
+    font-size: 1.4rem;
+    margin-top: 20px;
 }
 
 /* Código para quitarflechas en inputs de tipo number */
