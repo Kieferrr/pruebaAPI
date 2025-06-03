@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +9,13 @@
     <!-- ROBOTO FONT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Conversor de monedas Nacional</title>
 </head>
+
 <body>
     <header>
         <h1>Conversor de monedas Nacional</h1>
@@ -22,11 +25,12 @@
             <div class="conversor-card">
 
                 <h3 id="card-title">Pesos chilenos a otra moneda</h3>
-                
+
                 <div class="form-group">
                     <label for="clp-input">Monto</label>
                     <div class="input-design">
-                        <span class="clp">CLP</span><input autocomplete="off" placeholder="Ej: 10000" id="clp-input" type="number">
+                        <span class="clp">CLP</span><input autocomplete="off" placeholder="Ej: 10000" id="clp-input"
+                            type="number">
                     </div>
 
                     <label for="currency-select">Moneda a convertir</label>
@@ -35,12 +39,12 @@
                             <option value="" disabled selected hidden>Seleccionar moneda</option>
                         </select>
                     </div>
-                    
+
                     <button id="converter-button">Buscar</button>
                     <p id="result-p"></p>
                     <P id="error-grafico"></P>
                     <div class="gráfica">
-                </div>
+                    </div>
                     <canvas id="myChart"></canvas>
                 </div>
             </div>
@@ -48,4 +52,5 @@
     </main>
     <script src="assets/js/script.js"></script>
 </body>
+
 </html>
