@@ -134,8 +134,8 @@ input:focus {
     opacity: 0.7;
 }
 
-/* Diseño respuesta */
-#result-p {
+/* Diseño respuesta y error gráfico */
+#result-p, #error-grafico {
     color: whitesmoke;
     font-size: 1.4rem;
     margin-top: 20px;
