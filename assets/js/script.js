@@ -81,7 +81,7 @@ converterButton.addEventListener("click", () => {
 
 async function obtenerVariación(moneda) {
     try {
-        const res = await fetch(`https://mindicador.cl/api/3${moneda}`);
+        const res = await fetch(`https://mindicador.cl/api/${moneda}`);
         const resultado = await res.json();
 
         // Solo últimos 10 días
