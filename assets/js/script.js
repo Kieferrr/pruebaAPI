@@ -2,6 +2,7 @@ const clpInput = document.getElementById("clp-input");
 const currencySelect = document.getElementById("currency-select");
 const converterButton = document.getElementById("converter-button");
 const resultP = document.getElementById("result-p");
+const errorGrafico = document.getElementById("error-grafico")
 
 // Diccionario para mostrar nombres de las monedas con mayúscula y acento
 
@@ -44,7 +45,8 @@ async function obtenerMonedas() {
         }
     }
     catch (error) {
-        console.log(error);
+        console.error("Error al obtener monedas:", error.message);
+        resultP.innerHTML = `No se pudieron cargar las monedas, inténtalo más tarde. (Detalles del error en consola).`
     };
 }
 
@@ -79,7 +81,7 @@ converterButton.addEventListener("click", () => {
 
 async function obtenerVariación(moneda) {
     try {
-        const res = await fetch(`https://mindicador.cl/api/${moneda}`);
+        const res = await fetch(`https://mindicador.cl/api/3${moneda}`);
         const resultado = await res.json();
 
         // Solo últimos 10 días
@@ -107,8 +109,8 @@ async function obtenerVariación(moneda) {
         return { labels, datasets };
     }
     catch (error) {
-        console.log(error);
-
+        console.error("Error al obtener variación:", error.message);
+        errorGrafico.innerHTML = `No se pudo cargar la gráfica. (Detalles del error en consola).`
     }
 }
 
@@ -117,78 +119,85 @@ let graficoActual = null;
 
 // Funcion para renderizar el gráfico
 async function renderGrafica(moneda) {
-    const data = await obtenerVariación(moneda);
+    try {
 
-    const config = {
-        type: "line",
-        data,
-        options: {
-            layout: {
-                padding: {
-                    top: 20,
-                    bottom: 20,
-                    right: 30,
-                    left: 30,
-                },
-            },
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Fechas',
-                        font: {
-                            family: 'Roboto',
-                            size: 16,
-                        },
-                        color: 'whitesmoke',
+        const data = await obtenerVariación(moneda);
+
+        const config = {
+            type: "line",
+            data,
+            options: {
+                layout: {
+                    padding: {
+                        top: 20,
+                        bottom: 20,
+                        right: 30,
+                        left: 30,
                     },
-                    ticks: {
-                        color: '#bbbbbb',
-                        callback: function (value, index, values) {
-                            return data.labels[index].slice(5, 10);
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Fechas',
+                            font: {
+                                family: 'Roboto',
+                                size: 16,
+                            },
+                            color: 'whitesmoke',
+                        },
+                        ticks: {
+                            color: '#bbbbbb',
+                            callback: function (value, index, values) {
+                                return data.labels[index].slice(5, 10);
+                            }
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: '#bbbbbb',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Valor',
+                            font: {
+                                family: 'Roboto',
+                                size: 16,
+                            },
+                            color: 'whitesmoke',
                         }
                     }
                 },
-                y: {
-                    ticks: {
-                        color: '#bbbbbb',
-                    },
+                plugins: {
                     title: {
                         display: true,
-                        text: 'Valor',
+                        text: `Valor diario del ${moneda}`,
                         font: {
                             family: 'Roboto',
-                            size: 16,
+                            size: 24,
+                            weight: 'bold'
                         },
                         color: 'whitesmoke',
+                    },
+                    legend: {
+                        display: false,
                     }
                 }
-            },
-            plugins: {
-                title: {
-                    display: true,
-                    text: `Valor diario del ${moneda}`,
-                    font: {
-                        family: 'Roboto',
-                        size: 24,
-                        weight: 'bold'
-                    },
-                    color: 'whitesmoke',
-                },
-                legend: {
-                    display: false,
-                }
             }
+        };
+        const myChart = document.getElementById("myChart");
+        myChart.style.backgroundColor = "#303030";
+
+        // Si ya hay un gráfico, se borra antes de crear uno nuevo
+        if (graficoActual) {
+            graficoActual.destroy();
         }
-    };
-    const myChart = document.getElementById("myChart");
-    myChart.style.backgroundColor = "#303030";
 
-    // Si ya hay un gráfico, se borra antes de crear uno nuevo
-    if (graficoActual) {
-        graficoActual.destroy();
+        // Crear y guardar el nuevo gráfico
+        graficoActual = new Chart(myChart, config);
     }
-
-    // Crear y guardar el nuevo gráfico
-    graficoActual = new Chart(myChart, config);
+    catch (error) {
+        console.error("Error al renderizar gráfica:", error.message);
+        errorGrafico.innerHTML = `No se pudo mostrar la gráfica. (Detalles del error en consola).`
+    }
 }
