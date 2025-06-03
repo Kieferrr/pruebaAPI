@@ -46,7 +46,7 @@ async function obtenerMonedas() {
     }
     catch (error) {
         console.error("Error al obtener monedas:", error.message);
-        resultP.innerHTML = `No se pudieron cargar las monedas, inténtalo más tarde. (Detalles del error en consola).`
+        resultP.innerHTML = `No se pudieron cargar las monedas, inténtalo más tarde. Error: ${error.message}`
     };
 }
 
@@ -110,7 +110,7 @@ async function obtenerVariación(moneda) {
     }
     catch (error) {
         console.error("Error al obtener variación:", error.message);
-        errorGrafico.innerHTML = `No se pudo cargar la gráfica. (Detalles del error en consola).`
+        errorGrafico.innerHTML = `No se pudo cargar la gráfica. Error: ${error.message}`
     }
 }
 
@@ -198,6 +198,6 @@ async function renderGrafica(moneda) {
     }
     catch (error) {
         console.error("Error al renderizar gráfica:", error.message);
-        errorGrafico.innerHTML = `No se pudo mostrar la gráfica. (Detalles del error en consola).`
+        errorGrafico.innerHTML = `No se pudo mostrar la gráfica. Error: ${error.message}`
     }
 }
