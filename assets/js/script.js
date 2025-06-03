@@ -53,6 +53,12 @@ obtenerMonedas();
 
 // Onclick para hacer la conversion
 converterButton.addEventListener("click", () => {
+    //Validación si es número negativo o vacío
+    const clpValue = Number(clpInput.value);
+
+    if (!clpInput.value || clpValue < 0) {
+        return;
+    }
 
     //Buscar la moneda seleccionada en el select
     const monedaSeleccionada = monedas.find(moneda => moneda.codigo === currencySelect.value);
